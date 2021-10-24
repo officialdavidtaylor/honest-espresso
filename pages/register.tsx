@@ -43,10 +43,12 @@ const Register = (props: Props) => {
 
   return (
     <div className={styles.container}>
-      {user && (
+      {user ? (
         <p>
           Currently signed in as: <b>{user.userName}</b>
         </p>
+      ) : (
+        <p>Please Select a user to sign in as</p>
       )}
       <form onSubmit={onSubmit}>
         <select name='user' onChange={onChange}>

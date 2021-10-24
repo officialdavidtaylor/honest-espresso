@@ -2,6 +2,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useQuery, gql, useMutation } from "@apollo/client";
+import RequireLogin from "../../components/RequireLogin";
 
 interface Props {}
 
@@ -105,24 +106,26 @@ const ClaimPage = (props: Props) => {
     );
   }
   return (
-    <div>
-      <p>{"today you're drinking:"}</p>
+    <RequireLogin>
       <div>
+        <p>{"today you're drinking:"}</p>
         <div>
-          <img
-            src={imageUrl ?? ""}
-            alt='bag image'
-            style={{ height: "300px", width: "300px" }}
-          />
+          <div>
+            <img
+              src={imageUrl ?? ""}
+              alt='bag image'
+              style={{ height: "300px", width: "300px" }}
+            />
+          </div>
+          <div>
+            <p>{roaster}</p>
+            <p>{name}</p>
+            <p>Roast Level: {roastLevel}</p>
+          </div>
         </div>
-        <div>
-          <p>{roaster}</p>
-          <p>{name}</p>
-          <p>Roast Level: {roastLevel}</p>
-        </div>
+        <button onClick={onClaimShot}>Claim Shot</button>
       </div>
-      <button onClick={onClaimShot}>Claim Shot</button>
-    </div>
+    </RequireLogin>
   );
 };
 
