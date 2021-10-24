@@ -6,6 +6,22 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 interface Props {}
 
 const ClaimPage = (props: Props) => {
+  const [user, setUser] = React.useState<null | {
+    userId: Number;
+    userName: String;
+  }>(null);
+  React.useEffect(() => {
+    const userIdString = localStorage.getItem("userId");
+    const userId = userIdString ? parseInt(userIdString) : null;
+    const userName = localStorage.getItem("userName") ?? "";
+    if (userId) {
+      setUser({
+        userId,
+        userName,
+      });
+    }
+  }, []);
+
   // Parse Beans Info
   const router = useRouter();
   const tinId = router.query.tinId;
@@ -16,7 +32,10 @@ const ClaimPage = (props: Props) => {
           id
           coffee_depletion {
             id
-            isUsed
+            depletor_id
+            depletor {
+              name
+            }
             coffee_bag {
               id
               roast_level
@@ -42,20 +61,12 @@ const ClaimPage = (props: Props) => {
   const [isClaimed, setIsClaimed] = React.useState(false);
   const [claimShotMutation, claimShotProperties] = useMutation(
     gql`
-      mutation ClaimShot($tinId: Int!, $depletionId: Int!) {
-        update_tin_by_pk(
-          pk_columns: { id: $tinId }
-          _set: { coffee_depletion_id: null }
-        ) {
-          id
-          coffee_depletion_id
-        }
+      mutation ClaimShot($tinId: Int!, $depletionId: Int!, $userId: Int!) {
         update_coffee_depletion_by_pk(
           pk_columns: { id: $depletionId }
-          _set: { isUsed: true }
+          _set: { depletor_id: $userId }
         ) {
           id
-          isUsed
         }
       }
     `,
@@ -63,6 +74,7 @@ const ClaimPage = (props: Props) => {
       variables: {
         tinId,
         depletionId: tin?.coffee_depletion?.id,
+        userId: user?.userId,
       },
     }
   );
@@ -74,7 +86,8 @@ const ClaimPage = (props: Props) => {
   React.useEffect(() => {
     if (!loading && !error) {
       setIsClaimed(
-        tin?.coffee_depletion?.id == undefined || tin?.coffee_depletion.isUsed
+        tin?.coffee_depletion?.id == undefined ||
+          tin?.coffee_depletion.depletor_id
       );
     }
   }, [loading]);
@@ -87,7 +100,9 @@ const ClaimPage = (props: Props) => {
     return <p>Sorry something went wrong :(</p>;
   }
   if (isClaimed) {
-    return <p>This Tin is Claimed</p>;
+    return (
+      <p>This Tin was Claimed by: {tin?.coffee_depletion?.depletor?.name}</p>
+    );
   }
   return (
     <div>
