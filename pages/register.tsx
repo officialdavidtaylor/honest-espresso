@@ -11,7 +11,7 @@ const Register = (props: Props) => {
     userName: string;
   }>(null);
 
-  const [newUserId, setNewUserId] = React.useState<null | number>(null);
+  const [newUserId, setNewUserId] = React.useState<Number>(users[0].id);
 
   const onSubmit = (event: any) => {
     event.preventDefault();
@@ -19,7 +19,6 @@ const Register = (props: Props) => {
     const userIdString = newUserInfo ? newUserInfo.id.toString() : null;
     localStorage.setItem("userName", newUserInfo?.name || "");
     localStorage.setItem("userId", userIdString ?? "");
-    alert("New user set");
     setUser({
       userId: newUserInfo?.id ?? 0,
       userName: newUserInfo?.name || "",
@@ -51,7 +50,7 @@ const Register = (props: Props) => {
         <p>Please Select a user to sign in as</p>
       )}
       <form onSubmit={onSubmit}>
-        <select name='user' onChange={onChange}>
+        <select name='user' onChange={onChange} defaultValue={users[0].id}>
           {users.map(({ id, name }) => (
             <option value={id} key={id}>
               {name}
