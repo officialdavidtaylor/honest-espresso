@@ -7,7 +7,7 @@ const client = new ApolloClient({
   uri: "https://austin-david-coffee.hasura.app/v1/graphql",
   cache: new InMemoryCache(),
   headers: {
-    authorization: `Bearer ${HASURA_ADMIN_KEY}`,
+    "x-hasura-admin-secret": HASURA_ADMIN_KEY,
   },
 });
 
