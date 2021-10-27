@@ -62,7 +62,7 @@ const ClaimPage = (props: Props) => {
   const [isClaimed, setIsClaimed] = React.useState(false);
   const [claimShotMutation, claimShotProperties] = useMutation(
     gql`
-      mutation ClaimShot($tinId: Int!, $depletionId: Int!, $userId: Int!) {
+      mutation ClaimShot($depletionId: Int!, $userId: Int!) {
         update_coffee_depletion_by_pk(
           pk_columns: { id: $depletionId }
           _set: { depletor_id: $userId }
@@ -73,7 +73,6 @@ const ClaimPage = (props: Props) => {
     `,
     {
       variables: {
-        tinId,
         depletionId: tin?.coffee_depletion?.id,
         userId: user?.userId,
       },
@@ -102,7 +101,7 @@ const ClaimPage = (props: Props) => {
   }
   if (isClaimed) {
     return (
-      <p>This Tin was Claimed by: {tin?.coffee_depletion?.depletor?.name}</p>
+      <p>This Tin was Claimed by: {tin?.coffee_depletion?.depletor?.name ?? user?.userName}</p>
     );
   }
   return (
