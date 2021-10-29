@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import RequireLogin from "../../components/RequireLogin";
 
+import styles from "./claim.module.css";
+
 interface Props {}
 
 const ClaimPage = (props: Props) => {
@@ -42,6 +44,7 @@ const ClaimPage = (props: Props) => {
               roast_level
               roaster
               image_url
+              roast_name
             }
           }
         }
@@ -57,6 +60,7 @@ const ClaimPage = (props: Props) => {
   const name = coffeeBag?.name;
   const roastLevel = coffeeBag?.roast_level;
   const imageUrl: string | null = coffeeBag?.image_url;
+  const roastName = coffeeBag?.roast_name;
 
   // Claim Shot Logic
   const [isClaimed, setIsClaimed] = React.useState(false);
@@ -106,23 +110,25 @@ const ClaimPage = (props: Props) => {
   }
   return (
     <RequireLogin>
-      <div>
-        <p>{"today you're drinking:"}</p>
-        <div>
-          <div>
+      <div className={styles.container}>
+        <div className={styles.bagCard}>
+          <h6 className={styles.bannerText}>{"today you're drinking:"}</h6>
+          <div className={styles.bagInfo}>
             <img
               src={imageUrl ?? ""}
               alt='bag image'
-              style={{ height: "300px", width: "300px" }}
+              className={styles.bagImage}
             />
-          </div>
-          <div>
-            <p>{roaster}</p>
-            <p>{name}</p>
-            <p>Roast Level: {roastLevel}</p>
+            <div className={styles.bagTextBlock}>
+              <h1 className={styles.bagBrand}>{roaster}</h1>
+              <h2 className={styles.bagRoastName}>{roastName}</h2>
+              <h3 className={styles.bagRoastLevel}>Roast Level: {roastLevel}</h3>
+            </div>
           </div>
         </div>
-        <button onClick={onClaimShot}>Claim Shot</button>
+        <div className={styles.buttonContainer}>
+          <button className={styles.button} onClick={onClaimShot}>Claim Shot</button>
+        </div>
       </div>
     </RequireLogin>
   );
