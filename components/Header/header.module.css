@@ -1,2 +1,28 @@
 .container {
+    margin: 0px;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    height: 80px;
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #909CAC;
+}
+.headerGlyph {
+    margin-left: 20px;
+    width: 40px;
+    height: 40px;
+
+    color: white;
+}
+.headerText {
+    margin-left: 20px;
+    font-family: Roboto, sans-serif;
+    font-size: 36px;
+
+    color: white;
 }
