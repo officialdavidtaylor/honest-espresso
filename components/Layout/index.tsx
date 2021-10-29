@@ -8,7 +8,7 @@ const Layout: React.FC<Props> = (props) => {
   return (
     <>
       <Header />
-      <main className={styles.container}>{props.children}</main>;
+      <main className={styles.container}>{props.children}</main>
     </>
   )
 };
