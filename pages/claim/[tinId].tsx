@@ -62,6 +62,11 @@ const ClaimPage = (props: Props) => {
   const imageUrl: string | null = coffeeBag?.image_url;
   const roastName = coffeeBag?.roast_name;
 
+  let buttonText = "Claim Shot";
+  let buttonStyle = styles.button;
+  let refillButtonLink = ("../refill/" + tinId);
+  let refillButtonText = undefined;
+
   // Claim Shot Logic
   const [isClaimed, setIsClaimed] = React.useState(false);
   const [claimShotMutation, claimShotProperties] = useMutation(
@@ -98,15 +103,24 @@ const ClaimPage = (props: Props) => {
 
   // Rendering
   if (loading || claimShotProperties.loading) {
-    return <p>loading...</p>;
+    return (
+    <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
+      <div className={styles.coffeeMug}>
+        <div className={styles.coffeeContainer}>
+          <div className={styles.coffee}></div>
+        </div>
+      </div>
+    </div>
+    );
   }
   if (error) {
     return <p>Sorry something went wrong :(</p>;
   }
   if (isClaimed) {
-    return (
-      <p>This Tin was Claimed by: {tin?.coffee_depletion?.depletor?.name ?? user?.userName}</p>
-    );
+    buttonText = ("Claimed by " + (tin?.coffee_depletion?.depletor?.name ?? user?.userName));
+    buttonStyle = styles.buttonClicked;
+
+    refillButtonText = "Refill Tin";
   }
   return (
     <RequireLogin>
@@ -127,7 +141,10 @@ const ClaimPage = (props: Props) => {
           </div>
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.button} onClick={onClaimShot}>Claim Shot</button>
+          <button className={buttonStyle} disabled={isClaimed} onClick={onClaimShot}>{buttonText}</button>
+        </div>
+        <div className={styles.buttonContainer}>
+          <a className={styles.refillButton} href={refillButtonLink}>{isClaimed ? refillButtonText : null}</a>
         </div>
       </div>
     </RequireLogin>
