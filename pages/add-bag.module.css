@@ -1,0 +1,18 @@
+.formContainer {
+    width: 90vw;
+    margin: 5vw;
+    display: flex;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.bagCost:valid {
+    color: green;
+}
+
+.bagCost:invalid {
+    color: red;
+}
