@@ -3,7 +3,7 @@
     top: 0px;
     left: 0px;
     position: fixed;
-    height: 80px;
+    height: 10vh;
     width: 100vw;
 
     display: flex;
@@ -13,16 +13,16 @@
     background-color: #909CAC;
 }
 .headerGlyph {
-    margin-left: 20px;
-    width: 40px;
-    height: 40px;
+    margin-left: 5vw;
+    width: 5vh;
+    height: 5vh;
 
     color: white;
 }
 .headerText {
-    margin-left: 20px;
+    margin-left: 5vw;
     font-family: Roboto, sans-serif;
-    font-size: 36px;
+    font-size: 4vh;
 
     color: white;
 }
