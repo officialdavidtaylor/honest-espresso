@@ -1,6 +1,12 @@
 .container {
     width: 100vw;
     height: 90vh;
+
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+
     display: flex;
     flex-direction: column;
     justify-content: space-around;
