@@ -6,7 +6,7 @@ import RequireLogin from "../../components/RequireLogin";
 
 import styles from "./claim.module.css";
 
-interface Props {}
+interface Props { }
 
 const ClaimPage = (props: Props) => {
   const [user, setUser] = React.useState<null | {
@@ -96,7 +96,7 @@ const ClaimPage = (props: Props) => {
     if (!loading && !error) {
       setIsClaimed(
         tin?.coffee_depletion?.id == undefined ||
-          tin?.coffee_depletion.depletor_id
+        tin?.coffee_depletion.depletor_id
       );
     }
   }, [loading]);
@@ -104,13 +104,13 @@ const ClaimPage = (props: Props) => {
   // Rendering
   if (loading || claimShotProperties.loading) {
     return (
-    <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
-      <div className={styles.coffeeMug}>
-        <div className={styles.coffeeContainer}>
-          <div className={styles.coffee}></div>
+      <div className={styles.loadingContainer}>
+        <div className={styles.coffeeMug}>
+          <div className={styles.coffeeContainer}>
+            <div className={styles.coffee}></div>
+          </div>
         </div>
       </div>
-    </div>
     );
   }
   if (error) {

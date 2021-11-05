@@ -1,6 +1,6 @@
 .container {
     width: 100vw;
-    height: 90vh;
+    height: 90%;
 
     position: fixed;
     bottom: 0px;
@@ -124,6 +124,14 @@
     font-size: 18px;
 
     color: #909CAC;
+}
+
+.loadingContainer {
+    display: "flex";
+    justify-content: "center";
+    align-items: "center";
+    height: "100vh";
+    height: -webkit-fill-available;
 }
  
 .coffeeMug {
