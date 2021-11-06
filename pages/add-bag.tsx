@@ -15,7 +15,7 @@ const AddBagPage = (props: Props) => {
         <input type="text" name="roastName" /><br />
 
         <label>Roast Level:</label><br />
-        <select className="selectList">
+        <select className="selectList" name="roastLevel">
           <option>Medium</option>
           <option>Light</option>
           <option>Dark</option>
