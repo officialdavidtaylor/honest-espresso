@@ -6,7 +6,7 @@ import RequireLogin from "../../components/RequireLogin";
 
 import styles from "./claim.module.css";
 
-interface Props { }
+interface Props {}
 
 const ClaimPage = (props: Props) => {
   const [user, setUser] = React.useState<null | {
@@ -64,17 +64,21 @@ const ClaimPage = (props: Props) => {
 
   let buttonText = "Claim Shot";
   let buttonStyle = styles.button;
-  let refillButtonLink = ("../refill/" + tinId);
+  let refillButtonLink = "../refill/" + tinId;
   let refillButtonText = undefined;
 
   // Claim Shot Logic
   const [isClaimed, setIsClaimed] = React.useState(false);
   const [claimShotMutation, claimShotProperties] = useMutation(
     gql`
-      mutation ClaimShot($depletionId: Int!, $userId: Int!) {
+      mutation ClaimShot(
+        $depletionId: Int!
+        $userId: Int!
+        $deplatedOn: timestamp
+      ) {
         update_coffee_depletion_by_pk(
           pk_columns: { id: $depletionId }
-          _set: { depletor_id: $userId }
+          _set: { depletor_id: $userId, depleted_on: $depletedOn }
         ) {
           id
         }
@@ -84,6 +88,7 @@ const ClaimPage = (props: Props) => {
       variables: {
         depletionId: tin?.coffee_depletion?.id,
         userId: user?.userId,
+        depletedOn: new Date().toISOString(),
       },
     }
   );
@@ -96,7 +101,7 @@ const ClaimPage = (props: Props) => {
     if (!loading && !error) {
       setIsClaimed(
         tin?.coffee_depletion?.id == undefined ||
-        tin?.coffee_depletion.depletor_id
+          tin?.coffee_depletion.depletor_id
       );
     }
   }, [loading]);
@@ -117,7 +122,8 @@ const ClaimPage = (props: Props) => {
     return <p>Sorry something went wrong :(</p>;
   }
   if (isClaimed) {
-    buttonText = ("Claimed by " + (tin?.coffee_depletion?.depletor?.name ?? user?.userName));
+    buttonText =
+      "Claimed by " + (tin?.coffee_depletion?.depletor?.name ?? user?.userName);
     buttonStyle = styles.buttonClicked;
 
     refillButtonText = "Refill Tin";
@@ -136,15 +142,25 @@ const ClaimPage = (props: Props) => {
             <div className={styles.bagTextBlock}>
               <h1 className={styles.bagBrand}>{roaster}</h1>
               <h2 className={styles.bagRoastName}>{roastName}</h2>
-              <h3 className={styles.bagRoastLevel}>Roast Level: {roastLevel}</h3>
+              <h3 className={styles.bagRoastLevel}>
+                Roast Level: {roastLevel}
+              </h3>
             </div>
           </div>
         </div>
         <div className={styles.buttonContainer}>
-          <button className={buttonStyle} disabled={isClaimed} onClick={onClaimShot}>{buttonText}</button>
+          <button
+            className={buttonStyle}
+            disabled={isClaimed}
+            onClick={onClaimShot}
+          >
+            {buttonText}
+          </button>
         </div>
         <div className={styles.buttonContainer}>
-          <a className={styles.refillButton} href={refillButtonLink}>{isClaimed ? refillButtonText : null}</a>
+          <a className={styles.refillButton} href={refillButtonLink}>
+            {isClaimed ? refillButtonText : null}
+          </a>
         </div>
       </div>
     </RequireLogin>
