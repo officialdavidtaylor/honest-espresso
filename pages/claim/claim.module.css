@@ -9,17 +9,20 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-flow: column wrap;
 }
 
 .bagCard {
     height: fit-content;
-    width: 90vw;
+    width: 50vw;
     padding: 5vw;
     
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-basis: auto;
 }
 
 .bannerText {
@@ -118,7 +121,7 @@
 }
 
 .refillButton {
-    height: 50px;
+    height: 5vh;
 
     font-family: Roboto, sans-serif;
     font-size: 18px;
