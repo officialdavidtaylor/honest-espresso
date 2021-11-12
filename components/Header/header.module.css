@@ -1,28 +1,44 @@
 .container {
-    margin: 0px;
-    top: 0px;
-    left: 0px;
-    position: fixed;
-    height: 10%; /* changed from vh to % to mitigate iPhone vh handling */
-    width: 100vw;
+  margin: 0px;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  height: 10%; /* changed from vh to % to mitigate iPhone vh handling */
+  width: 100vw;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 
-    background-color: #909CAC;
+  background-color: #909CAC;
 }
+
 .headerGlyph {
-    margin-left: 5vw;
-    width: 5vh;
-    height: 5vh;
+  margin-left: 30px;
+  width: 5vh;
+  height: 5vh;
 
-    color: white;
+  color: white;
 }
-.headerText {
-    margin-left: 5vw;
-    font-family: Roboto, sans-serif;
-    font-size: 4vh;
 
-    color: white;
+.linkStyle {
+  width: 100%;
+
+  text-decoration: none;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.headerText {
+  width: 100%;
+
+  font-family: Roboto, sans-serif;
+  font-size: 4vh;
+
+  text-align: center;
+
+  color: white;
 }
