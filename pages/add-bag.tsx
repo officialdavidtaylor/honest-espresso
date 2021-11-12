@@ -31,7 +31,7 @@ const AddBagMutation = gql`
   }
 `;
 
-interface Props {}
+interface Props { }
 
 interface FormValues {
   imageUrl: string;
@@ -42,11 +42,6 @@ interface FormValues {
   bagWeight: string;
   bagOwnerId: string;
 }
-
-const style = {
-  width: "100%",
-  margin: "10px 0",
-};
 
 const AddBagPage = (props: Props) => {
   const [addBagMutation, addBagProperties] = useMutation(AddBagMutation);
@@ -65,74 +60,74 @@ const AddBagPage = (props: Props) => {
   console.log({ addBagProperties });
 
   return (
-    <div className={styles.formContainer}>
-      <h2>Add Bag Form</h2>
-      <form onSubmit={handleSubmit(onSubmit)} style={style}>
-        <label>Bag Image Url:</label>
-        <br />
+    <div className={styles.container}>
+      <h2 className={styles.h2Text}>Add Bag Form</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+        <label className={styles.titleText}>Bag Image Url:</label>
         <input
           type='url'
           {...register("imageUrl", { required: true })}
-          style={style}
+          className={styles.textInputBox}
         />
-        <br />
-        <label>Roaster:</label>
-        <br />
+
+        <label className={styles.titleText}>Roaster:</label>
         <input
           type='text'
           {...register("roaster", { required: true })}
-          style={style}
+          className={styles.textInputBox}
         />
-        <br />
-        <label>Roast Name:</label>
-        <br />
+
+        <label className={styles.titleText}>Roast Name:</label>
         <input
           type='text'
           {...register("roastName", { required: true })}
-          style={style}
+          className={styles.textInputBox}
         />
-        <br />
-        <label>Roast Level:</label>
-        <br />
+
+        <label className={styles.titleText}>Roast Level:</label>
+
         <select
-          className='selectList'
-          style={style}
+          className={styles.textInputBox}
           {...register("roastLevel", { required: true })}
         >
           <option value='light'>Light</option>
           <option value='medium'>Medium</option>
           <option value='dark'>Dark</option>
         </select>
-        <br />
-        <label>
+
+        <label className={styles.titleText}>
           Bag Cost: <span style={{ color: "gray" }}>(post-tax)</span>
         </label>
-        <br />
+
         <input
           type='text'
-          style={style}
+          className={styles.textInputBox}
           {...register("bagCost", { required: true })}
         />
-        <br />
-        <label>Bag Weight(grams):</label>
-        <br />
+
+        <label className={styles.titleText}>Bag Weight (grams):</label>
+
         <input
           type='number'
-          style={style}
+          className={styles.textInputBox}
           {...register("bagWeight", { required: true })}
         />
-        <br />
-        <label>Bag Owner</label>
-        <br />
-        <select style={style} {...register("bagOwnerId", { required: true })}>
+
+        <label className={styles.titleText}>Bag Owner</label>
+
+        <select
+          className={styles.textInputBox}
+          {...register("bagOwnerId",
+            { required: true })}
+        >
           <option value='1'>Austin</option>
           <option value='2'>David</option>
         </select>
-        <br />
-        <br />
+
+
         <button
           type='submit'
-          style={style}
+          className={styles.buttonStyle}
           disabled={addBagProperties.loading || addBagProperties.called}
         >
           {addBagProperties.loading ? "Loading..." : "Add Bag"}

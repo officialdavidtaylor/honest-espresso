@@ -1,31 +1,24 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 
-const linkStyles = {
-  background: "#909CAC",
-  margin: "12px 0",
-  padding: "12px",
-  borderRadius: "12px",
-  display: "flex",
-  justifyContent: "center",
-};
+import styles from "./index.module.css";
 
 const Home: NextPage = () => {
   return (
-    <div style={{ width: "calc(100% - 40px)", padding: "0 20px" }}>
+    <div className={styles.container}>
       <Link href='/report' passHref>
-        <a>
-          <div style={linkStyles}>Report</div>
+        <a className={styles.linkStyle}>
+          <div className={styles.buttonStyle}>Report</div>
         </a>
       </Link>
       <Link href='/add-bag' passHref>
-        <a>
-          <div style={linkStyles}>Add Bag</div>
+        <a className={styles.linkStyle}>
+          <div className={styles.buttonStyle}>Add Bag</div>
         </a>
       </Link>
       <Link href='/register' passHref>
-        <a>
-          <div style={linkStyles}>Register</div>
+        <a className={styles.linkStyle}>
+          <div className={styles.buttonStyle}>Register</div>
         </a>
       </Link>
     </div>
