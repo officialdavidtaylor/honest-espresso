@@ -16,7 +16,6 @@
 
 .bagCard {
   height: fit-content;
-  width: 50vw;
   padding: 5vw;
   
   display: flex;
@@ -26,7 +25,6 @@
 }
 
 .bannerText {
-  width: 100%;
   height: 4vh;
   margin-bottom: 1vh;
   margin-top: 0px;
