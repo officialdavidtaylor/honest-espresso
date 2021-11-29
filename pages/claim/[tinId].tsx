@@ -3,10 +3,12 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import RequireLogin from "../../components/RequireLogin";
+import Loading from "../../components/LoadingAnimation/Loading";
 
 import styles from "./claim.module.css";
+import { visit } from "graphql";
 
-interface Props {}
+interface Props { }
 
 const ClaimPage = (props: Props) => {
   const [user, setUser] = React.useState<null | {
@@ -67,6 +69,8 @@ const ClaimPage = (props: Props) => {
   let refillButtonLink = "../refill/" + tinId;
   let refillButtonText = undefined;
 
+  let loadingAnimation = false;
+
   // Claim Shot Logic
   const [isClaimed, setIsClaimed] = React.useState(false);
   const [claimShotMutation, claimShotProperties] = useMutation(
@@ -96,22 +100,14 @@ const ClaimPage = (props: Props) => {
     if (!loading && !error) {
       setIsClaimed(
         tin?.coffee_depletion?.id == undefined ||
-          tin?.coffee_depletion.depletor_id
+        tin?.coffee_depletion.depletor_id
       );
     }
   }, [loading]);
 
   // Rendering
   if (loading || claimShotProperties.loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.coffeeMug}>
-          <div className={styles.coffeeContainer}>
-            <div className={styles.coffee}></div>
-          </div>
-        </div>
-      </div>
-    );
+    loadingAnimation = true;
   }
   if (error) {
     return <p>Sorry something went wrong :(</p>;
@@ -125,6 +121,8 @@ const ClaimPage = (props: Props) => {
   }
   return (
     <RequireLogin>
+      <Loading visibility={loadingAnimation} />
+
       <div className={styles.container}>
         <div className={styles.bagCard}>
           <h6 className={styles.bannerText}>{"today you're drinking:"}</h6>
@@ -158,6 +156,7 @@ const ClaimPage = (props: Props) => {
           </a>
         </div>
       </div>
+
     </RequireLogin>
   );
 };
