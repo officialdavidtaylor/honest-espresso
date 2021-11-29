@@ -3,7 +3,7 @@ import { users } from "../data";
 
 import styles from "./register.module.css";
 
-interface Props {}
+interface Props { }
 
 const Register = (props: Props) => {
   const [user, setUser] = React.useState<null | {
@@ -49,15 +49,15 @@ const Register = (props: Props) => {
       ) : (
         <p>Please Select a user to sign in as</p>
       )}
-      <form onSubmit={onSubmit}>
-        <select name='user' onChange={onChange} defaultValue={users[0].id}>
+      <form className={styles.formStyle} onSubmit={onSubmit}>
+        <select className={styles.selectBox} name='user' onChange={onChange} defaultValue={users[0].id}>
           {users.map(({ id, name }) => (
             <option value={id} key={id}>
               {name}
             </option>
           ))}
         </select>
-        <button type='submit'>Change User</button>
+        <button className={styles.buttonStyle} type='submit'>Change User</button>
       </form>
     </div>
   );
