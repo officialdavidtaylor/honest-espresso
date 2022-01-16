@@ -7,8 +7,6 @@ import _ from "lodash";
 import Loading from "../components/LoadingAnimation/Loading";
 import { useRouter } from "next/router";
 
-import { testData } from './testData.js';
-
 import styles from "./refill-tins.module.css";
 import selectStyles from "./refill/refill.module.css";
 
