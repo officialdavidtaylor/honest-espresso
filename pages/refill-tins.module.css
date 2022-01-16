@@ -1,0 +1,79 @@
+.container {
+  overflow: auto;
+}
+
+.formContainer{
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkboxCard{
+  height: 80px;
+  min-width: 140px;
+
+  margin: 5px;
+
+  padding: 0px;
+
+  color: black;
+  background-color: transparent;
+
+  font-family: Roboto, sans-serif;
+  font-size: 32px;
+  color: #A47053;
+
+  border: 2px solid #ECDAB9;
+
+  border-radius: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  transition-duration: 100ms;
+  transition-timing-function: ease-in-out;
+}
+
+.checkboxBox{
+  display: none;
+}
+
+.checkboxBox:checked + .checkboxCard {
+  /* border: 2px solid #A47053; */
+  background-color: #ECDAB9;
+}
+
+.submitButton{
+  height: 40px;
+  width: 60%;
+
+  margin-bottom: 4vh;
+  margin-top: 2vh;
+
+  background-color: #ECDAB9;
+
+  font-family: Roboto, sans-serif;
+  font-size: 32px;
+  color: #A47053;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  border-radius: 50vmin;
+  border-style: none;
+}
+
+.h1Text {
+  font-family: Roboto, sans-serif;
+  align-self: center;
+  text-align: center;
+}
