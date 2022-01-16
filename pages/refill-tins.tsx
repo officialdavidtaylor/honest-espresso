@@ -99,6 +99,12 @@ interface CheckboxProps {
   formId?: string;
 }
 
+interface Tin {
+  id: number;
+  coffee_depletion_id: number;
+  depletor: string;
+}
+
 // Variables
 let loadingAnimation = false;
 
@@ -125,8 +131,9 @@ const RefillTins = (props: Props) => {
 
   // Claim Shot Logic
   // FIXME: Should this be a function instead?
-  const claimShotMutation = (prop => useMutation(
-    gql`
+  const claimShotMutation = (coffee_depletion_id: Props) => {
+    useMutation(
+      gql`
       mutation ClaimShot($depletionId: Int!, $userId: Int!) {
         update_coffee_depletion_by_pk(
           pk_columns: { id: $depletionId }
@@ -136,21 +143,22 @@ const RefillTins = (props: Props) => {
         }
       }
     `,
-    {
-      variables: {
-        depletionId: prop,
-        userId: user?.userId,
-      },
-    }
-  ));
+      {
+        variables: {
+          depletionId: coffee_depletion_id,
+          userId: user?.userId,
+        },
+      }
+    )
+  };
 
   const onSubmit = async (values: FormValueTypes) => {
     // find the weight based on the holdType selected by the user
-    let perTinWeight = coffeeHoldTypes.data.coffee_hold_type.find(({ id }) => id = values.holdType).grams;
+    let perTinWeight = coffeeHoldTypes.data.coffee_hold_type.find(({ id }: Tin) => id = values.holdType).grams;
     let coffeeWeight = ((values.tinIds.length) * perTinWeight);
 
-    let totalBagWeight = availableBags.data.coffee_bag.find(({ id }) => id = values.bagId).weight_in_grams;
-    let usedBagWeight = availableBags.data.coffee_bag.find(({ id }) => id = values.bagId).coffee_used;
+    let totalBagWeight = availableBags.data.coffee_bag.find(({ id }: Tin) => id = values.bagId).weight_in_grams;
+    let usedBagWeight = availableBags.data.coffee_bag.find(({ id }: Tin) => id = values.bagId).coffee_used;
     let remainingBagWeight = (totalBagWeight - usedBagWeight)
 
     alert("This feature is still under development :)")
@@ -184,9 +192,9 @@ const RefillTins = (props: Props) => {
       <h1 className={styles.h1Text}>Bulk Refill Tins</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
         {/* Checkboxes for all the available tins */}
-        {availableTins.data.tin.map((tin) => {
+        {availableTins.data.tin.map((tin: Tin) => {
           return (
-            <InputCheckbox typeReg={register} name={tin.id} formId='tinList' />
+            <InputCheckbox typeReg={register} name={String(tin.id)} formId='tinList' />
           );
         })}
         <select
