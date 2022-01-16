@@ -16,6 +16,11 @@ const Home: NextPage = () => {
           <div className={styles.buttonStyle}>Add Bag</div>
         </a>
       </Link>
+      <Link href='/refill-tins' passHref>
+        <a className={styles.linkStyle}>
+          <div className={styles.buttonStyle}>Refill Tins</div>
+        </a>
+      </Link>
       <Link href='/register' passHref>
         <a className={styles.linkStyle}>
           <div className={styles.buttonStyle}>Register</div>
